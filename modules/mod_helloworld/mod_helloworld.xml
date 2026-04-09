@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" client="site" method="upgrade">
-    <name>Hello, World!</name>
+    <name>mod_helloworld</name>
     <author>John Doe</author>
     <version>1.0.0</version>
     <description>A simple Hello, World! module.</description>
+
     <files>
-        <filename>mod_helloworld.xml</filename>
         <filename module="mod_helloworld">mod_helloworld.php</filename>
+        <filename>mod_helloworld.xml</filename>
         <filename>helper.php</filename>
         <folder>tmpl</folder>
         <folder>sql</folder>
@@ -23,13 +24,4 @@
             <file driver="mysql" charset="utf8">sql/mysql/uninstall.mysql.utf8.sql</file>
         </sql>
     </uninstall>
-
-    <update> 
-        <schemas>
-            <schemapath type="mysql">sql/mysql/updates</schemapath>
-        </schemas> 
-    </update>
-
-    <config>
-    </config>
 </extension>
