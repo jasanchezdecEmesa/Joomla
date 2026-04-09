@@ -23,6 +23,25 @@ class ModFormulaOneHelper
     }
 
     /*
+    * Get a Formula One team by its ID.
+    *
+    * @param   int  $teamId The ID of the team
+    *
+    * @access public
+    */
+    public static function getTeamById($teamId)
+    {
+        $db = Factory::getDbo();
+        $query = $db->getQuery(true)
+            ->select('*')
+            ->from($db->quoteName('#__escuderias'))
+            ->where($db->quoteName('id') . ' = ' . $db->quote($teamId));
+
+        $db->setQuery($query);
+        return $db->loadObject();
+    }
+
+    /*
     * Get the list of Formula One drivers.
     *
     * @param   array  $params An object containing the module parameters

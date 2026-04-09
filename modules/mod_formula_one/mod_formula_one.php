@@ -1,18 +1,25 @@
 <?php
+
+use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ModuleHelper;
 
-// No direct access
 defined('_JEXEC') or die;
 
-// Include the syndicate functions only once
-require_once dirname(__FILE__) . '/helper.php';
+require_once __DIR__ . '/helper.php';
+
+$app = Factory::getApplication();
+$input = $app->getInput();
+
+$teamId = $input->getInt('team_id', 0);
 
 $teams = ModFormulaOneHelper::getTeams($params);
-$pilots = ModFormulaOneHelper::getPilots($params);
-$pilotsByTeam = [];
-foreach ($pilots as $pilot) {
-    $pilotsByTeam[$pilot->id_escuderia][] = $pilot;
+$selectedTeam = null;
+$pilots = [];
+
+if ($teamId > 0) {
+    $selectedTeam = ModFormulaOneHelper::getTeamById($teamId);
+    $pilots = ModFormulaOneHelper::getPilotsByTeam($teamId);
 }
 
-require ModuleHelper::getLayoutPath('mod_formula_one');
+require ModuleHelper::getLayoutPath('mod_formula_one', $params->get('layout', 'default'));
 
