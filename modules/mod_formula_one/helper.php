@@ -19,7 +19,7 @@ class ModFormulaOneHelper
             ->from($db->quoteName('#__escuderias'));
 
         $db->setQuery($query);
-        return $db->loadColumn();
+        return $db->loadObjectList();
     }
 
     /*
@@ -37,7 +37,7 @@ class ModFormulaOneHelper
             ->from($db->quoteName('#__pilotos'));
 
         $db->setQuery($query);
-        return $db->loadColumn();
+        return $db->loadObjectList();
     }
 
     /*
@@ -56,6 +56,6 @@ class ModFormulaOneHelper
             ->where($db->quoteName('id_escuderia') . ' = ' . $db->quote($teamId));
 
         $db->setQuery($query);
-        return $db->loadColumn();
+        return $db->loadObjectList();
     }
 }
