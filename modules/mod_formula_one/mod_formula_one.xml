@@ -2,7 +2,7 @@
 <extension type="module" client="site" method="upgrade">
     <name>mod_formula_one</name>
     <author>John Doe</author>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>A simple Formula One module where you can check each team's pilots.</description>
 
     <files>
@@ -24,4 +24,10 @@
             <file driver="mysql" charset="utf8">sql/mysql/uninstall.mysql.utf8.sql</file>
         </sql>
     </uninstall>
+
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/mysql/updates</schemapath>
+        </schemas>
+    </update>
 </extension>
