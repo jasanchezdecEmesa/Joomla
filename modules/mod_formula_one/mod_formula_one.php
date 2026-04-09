@@ -9,4 +9,10 @@ require_once dirname(__FILE__) . '/helper.php';
 
 $teams = ModFormulaOneHelper::getTeams($params);
 $pilots = ModFormulaOneHelper::getPilots($params);
+$pilotsByTeam = [];
+foreach ($pilots as $pilot) {
+    $pilotsByTeam[$pilot->id_escuderia][] = $pilot;
+}
+
 require ModuleHelper::getLayoutPath('mod_formula_one');
+
