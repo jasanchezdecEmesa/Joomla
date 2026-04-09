@@ -1,4 +1,6 @@
 <?php
+
+use Joomla\CMS\Factory;
 /**
  * Helper class for Hello World! module
  * 
@@ -22,6 +24,14 @@ class ModHelloWorldHelper
      */    
     public static function getHello($params)
     {
-        return 'Hello, World!';
+        $db = Factory::getDbo();
+
+        $query = $db->getQuery(true)
+            ->select($db->quoteName('hello'))
+            ->from($db->quoteName('#__helloworld'))
+            ->where('id = '. $db->Quote($params));
+
+        $db->setQuery($query);
+        return $db->loadResult();
     }
 }

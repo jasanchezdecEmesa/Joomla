@@ -2,7 +2,7 @@
 <extension type="module" client="site" method="upgrade">
     <name>mod_helloworld</name>
     <author>John Doe</author>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>A simple Hello, World! module.</description>
 
     <files>
@@ -24,4 +24,19 @@
             <file driver="mysql" charset="utf8">sql/mysql/uninstall.mysql.utf8.sql</file>
         </sql>
     </uninstall>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="lang"
+                    type="sql"
+                    label="Select a language"
+                    query="SELECT id AS value, lang AS text FROM #__helloworld"
+                    key_field="value"
+                    value_field="text"
+                />
+            </fieldset>
+        </fields>
+    </config>
 </extension>
