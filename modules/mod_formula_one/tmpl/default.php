@@ -1,6 +1,7 @@
 <?php 
 // No direct access
 defined('_JEXEC') or die; ?>
+
 <form action="" method="post">
     <select name="team_id" onchange="this.form.submit()">
         <option value="">Selecciona un equipo</option>
@@ -10,14 +11,13 @@ defined('_JEXEC') or die; ?>
     </select>
 </form>
 
-
 <div id="pilots-list">
-    <!-- Aquí se mostrarán los pilotos del equipo seleccionado -->
     <?php
     if (isset($_POST['team_id']) && !empty($_POST['team_id'])) {
         $teamId = $_POST['team_id'];
         $pilots = ModFormulaOneHelper::getPilotsByTeam($teamId);
         if (!empty($pilots)) {
+            echo '<h2>' . $teams[array_search($teamId, array_column($teams, 'id'))]->nombre . '</h2>';
             echo '<ul>';
             foreach ($pilots as $pilot) {
                 echo '<li>' . $pilot->nombre . ' ' . $pilot->apellido . '</li>';
