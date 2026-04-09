@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+    <name>mod_formula_one</name>
+    <author>John Doe</author>
+    <version>1.0.0</version>
+    <description>A simple Formula One module where you can check each team's pilots.</description>
+
+    <files>
+        <filename module="mod_formula_one">mod_formula_one.php</filename>
+        <filename>mod_formula_one.xml</filename>
+        <filename>helper.php</filename>
+        <folder>tmpl</folder>
+        <folder>sql</folder>
+    </files>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/mysql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/mysql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+</extension>
