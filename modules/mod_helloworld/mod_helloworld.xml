@@ -2,7 +2,7 @@
 <extension type="module" client="site" method="upgrade">
     <name>mod_helloworld</name>
     <author>John Doe</author>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <description>A simple Hello, World! module.</description>
 
     <files>
@@ -39,4 +39,10 @@
             </fieldset>
         </fields>
     </config>
+
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/mysql/updates</schemapath>
+        </schemas>
+    </update>
 </extension>
