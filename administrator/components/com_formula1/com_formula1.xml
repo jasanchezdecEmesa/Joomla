@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="component" method="upgrade">
+    <name>com_formula1</name>
+    <author>Juan Antonio</author>
+    <version>1.0.0</version>
+    <description>Componente Fórmula 1</description>
+
+    <namespace path="src">Alumno\Component\Formula1</namespace>
+
+    <administration>
+        <menu link="index.php?option=com_formula1">Fórmula 1</menu>
+
+        <files folder="admin">
+            <folder>src</folder>
+            <folder>services</folder>
+            <folder>forms</folder>
+            <folder>sql</folder>
+            <folder>tmpl</folder>
+            <filename>config.xml</filename>
+        </files>
+    </administration>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+</extension>

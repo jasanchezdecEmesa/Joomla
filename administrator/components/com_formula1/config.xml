@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fieldset name="basic">
+        <field
+            name="dummy"
+            type="text"
+            label="Dummy"
+            description="Temporary field"
+            default=""
+        />
+    </fieldset>
+</config>

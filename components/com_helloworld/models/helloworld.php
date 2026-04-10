@@ -2,6 +2,8 @@
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ItemModel;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Database\DatabaseInterface;
 
 /**
  * @package     Joomla.Administrator
@@ -40,18 +42,40 @@ class HelloWorldModelHelloWorld extends ItemModel
 
 		return $item;
 	}
+
+
+    public function getTable($type = 'HelloWorld', $prefix = 'HelloWorldTable', $config = array())
+	{
+		return Table::getInstance($type, $prefix, $config);
+	}
 	/**
 	 * Get the message
          *
 	 * @return  string  The message to be displayed to the user
 	 */
-	public function getMsg()
+	public function getMsg($id = 1)
 	{
-		if (!isset($this->message))
+		if (!is_array($this->messages))
 		{
-			$this->message = 'Hello World!';
+			$this->messages = array();
 		}
 
-		return $this->message;
+		if (!isset($this->messages[$id]))
+		{
+			// Request the selected id
+			$jinput = Factory::getApplication()->input;
+			$id     = $jinput->get('id', 1, 'INT');
+
+			// Get a TableHelloWorld instance
+			$table = $this->getTable();
+
+			// Load the message
+			$table->load($id);
+
+			// Assign the message
+			$this->messages[$id] = $table->greeting;
+		}
+
+		return $this->messages[$id];
 	}
 }
