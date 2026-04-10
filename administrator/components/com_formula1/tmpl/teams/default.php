@@ -11,6 +11,10 @@ use Joomla\CMS\Router\Route;
     <a class="btn btn-primary" href="<?php echo Route::_('index.php?option=com_formula1&view=team&layout=edit'); ?>">
         New Team
     </a>
+
+    <a class="btn btn-secondary" href="<?php echo Route::_('index.php?option=com_formula1&view=drivers'); ?>">
+        View Drivers
+    </a>
 </p>
 
 <table class="table table-striped">

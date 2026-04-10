@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="basic" label="Driver data">
+        <field name="id" type="hidden" />
+
+        <field
+            name="first_name"
+            type="text"
+            label="First Name"
+            required="true"
+        />
+
+        <field
+            name="last_name"
+            type="text"
+            label="Last Name"
+            required="true"
+        />
+
+        <field
+            name="nationality"
+            type="text"
+            label="Nationality"
+            required="true"
+        />
+
+        <field
+            name="number"
+            type="number"
+            label="Number"
+            required="true"
+        />
+
+        <field
+            name="team_id"
+            type="sql"
+            label="Team"
+            query="SELECT id AS value, name AS text FROM #__formula1_teams ORDER BY name ASC"
+            key_field="value"
+            value_field="text"
+            required="true"
+        />
+    </fieldset>
+</form>

@@ -2,7 +2,7 @@
 <extension type="component" method="upgrade">
     <name>com_formula1</name>
     <author>Juan Antonio</author>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>Componente Fórmula 1</description>
 
     <namespace path="src">Alumno\Component\Formula1</namespace>
