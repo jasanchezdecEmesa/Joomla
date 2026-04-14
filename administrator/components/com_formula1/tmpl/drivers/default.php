@@ -20,7 +20,7 @@ use Joomla\CMS\Router\Route;
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>ID</th>
+            <!--<th>ID</th>-->
             <th>Picture</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -34,7 +34,7 @@ use Joomla\CMS\Router\Route;
         <?php if (!empty($this->items)) : ?>
             <?php foreach ($this->items as $item) : ?>
                 <tr>
-                    <td><?php echo (int) $item->id; ?></td>
+                    <!--<td><?php echo (int) $item->id; ?></td>-->
                     <td>
                         <?php 
                         $foto = $item->picture;
