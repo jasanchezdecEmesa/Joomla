@@ -48,10 +48,10 @@ use Joomla\CMS\Router\Route;
 
                     if (!empty($pdfPath)) : ?>
                         <a href="<?php echo Joomla\CMS\Uri\Uri::root() . 'files/documents/' . $item->file; ?>" target="_blank">
-                        Ver ficha técnica
+                        View Technical Sheet
                         </a>
                     <?php else : ?>
-                        <span>Sin ficha técnica</span>
+                        <span>No technical sheet available</span>
                     <?php endif; ?></td>
                     <td>
                         <a class="btn btn-sm btn-secondary"
