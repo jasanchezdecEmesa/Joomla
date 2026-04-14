@@ -2,7 +2,7 @@
 <extension type="component" method="upgrade">
     <name>com_formula1</name>
     <author>Juan Antonio</author>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <description>Componente Fórmula 1</description>
 
     <namespace path="src">Alumno\Component\Formula1</namespace>
@@ -31,4 +31,10 @@
             <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
         </sql>
     </uninstall>
+
+    <update>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/update/mysql</file>
+        </sql>
+    </update>
 </extension>

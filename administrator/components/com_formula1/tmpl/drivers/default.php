@@ -21,6 +21,7 @@ use Joomla\CMS\Router\Route;
     <thead>
         <tr>
             <th>ID</th>
+            <th>Picture</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Nationality</th>
@@ -34,6 +35,17 @@ use Joomla\CMS\Router\Route;
             <?php foreach ($this->items as $item) : ?>
                 <tr>
                     <td><?php echo (int) $item->id; ?></td>
+                    <td>
+                        <?php 
+                        $foto = $item->picture;
+                        if (!empty($foto)) : ?>
+                            <img src="<?php echo Joomla\CMS\Uri\Uri::root() . $foto; ?>" 
+                                alt="<?php echo $item->first_name; ?>" 
+                                style="width:100px; height:auto;">
+                        <?php else : ?>
+                            No Image
+                        <?php endif; ?>
+                    </td>
                     <td><?php echo htmlspecialchars($item->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td>
                         <a href="<?php echo Route::_('index.php?option=com_formula1&view=driver&layout=edit&id=' . (int) $item->id); ?>">

@@ -40,5 +40,13 @@
             value_field="text"
             required="true"
         />
+
+        <field 
+            name="picture" 
+            type="media" 
+            label="Foto del Piloto" 
+            description="Selecciona la imagen del conductor" 
+            directory="pilots" 
+        />
     </fieldset>
 </form>

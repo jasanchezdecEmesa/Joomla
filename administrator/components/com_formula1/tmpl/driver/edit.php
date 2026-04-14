@@ -21,6 +21,7 @@ HTMLHelper::_('behavior.keepalive');
         <?php echo $this->form->renderField('last_name'); ?>
         <?php echo $this->form->renderField('nationality'); ?>
         <?php echo $this->form->renderField('number'); ?>
+        <?php echo $this->form->renderField('picture'); ?>
         <?php echo $this->form->renderField('team_id'); ?>
     </div>
 

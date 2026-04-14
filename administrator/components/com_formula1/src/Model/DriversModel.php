@@ -20,6 +20,7 @@ class DriversModel extends ListModel
                 $db->quoteName('d.nationality'),
                 $db->quoteName('d.number'),
                 $db->quoteName('d.team_id'),
+                $db->quoteName('d.picture'),
                 $db->quoteName('t.name', 'team_name')
             ])
             ->from($db->quoteName('#__formula1_drivers', 'd'))
