@@ -44,8 +44,8 @@
         <field 
             name="picture" 
             type="media" 
-            label="Foto del Piloto" 
-            description="Selecciona la imagen del conductor" 
+            label="Picture" 
+            description="Select the driver's image" 
             directory="pilots" 
         />
     </fieldset>

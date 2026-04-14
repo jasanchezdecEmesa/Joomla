@@ -34,8 +34,8 @@
         <field 
             name="file" 
             type="filelist" 
-            label="Ficha Técnica (PDF)" 
-            description="Sube la ficha técnica de la escudería" 
+            label="Technical Sheet (PDF)" 
+            description="Upload the technical sheet for the team" 
             directory="files/documents"
             preview="false"
             supported_extensions="PDF"
