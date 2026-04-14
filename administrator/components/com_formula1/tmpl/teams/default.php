@@ -20,7 +20,7 @@ use Joomla\CMS\Router\Route;
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>ID</th>
+            <!--<th>ID</th>-->
             <th>Name</th>
             <th>Country</th>
             <th>Team Principal</th>
@@ -33,7 +33,7 @@ use Joomla\CMS\Router\Route;
         <?php if (!empty($this->items)) : ?>
             <?php foreach ($this->items as $item) : ?>
                 <tr>
-                    <td><?php echo (int) $item->id; ?></td>
+                    <!--<td><?php echo (int) $item->id; ?></td>-->
                     <td>
                         <a href="<?php echo Route::_('index.php?option=com_formula1&view=team&layout=edit&id=' . (int) $item->id); ?>">
                             <?php echo htmlspecialchars($item->name, ENT_QUOTES, 'UTF-8'); ?>
