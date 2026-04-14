@@ -25,6 +25,7 @@ use Joomla\CMS\Router\Route;
             <th>Country</th>
             <th>Team Principal</th>
             <th>Engine</th>
+            <th>Technical Sheet</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -41,6 +42,17 @@ use Joomla\CMS\Router\Route;
                     <td><?php echo htmlspecialchars($item->country, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($item->team_principal, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($item->engine, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td>
+                    <?php 
+                    $pdfPath = $item->file;
+
+                    if (!empty($pdfPath)) : ?>
+                        <a href="<?php echo Joomla\CMS\Uri\Uri::root() . 'files/documents/' . $item->file; ?>" target="_blank">
+                        Ver ficha técnica
+                        </a>
+                    <?php else : ?>
+                        <span>Sin ficha técnica</span>
+                    <?php endif; ?></td>
                     <td>
                         <a class="btn btn-sm btn-secondary"
                            href="<?php echo Route::_('index.php?option=com_formula1&view=team&layout=edit&id=' . (int) $item->id); ?>">

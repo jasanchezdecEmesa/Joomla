@@ -13,7 +13,6 @@ CREATE TABLE IF NOT EXISTS `#__formula1_drivers` (
     `last_name` VARCHAR(100) NOT NULL,
     `nationality` VARCHAR(100) NOT NULL,
     `number` INT NOT NULL,
-    `picture` VARCHAR(255) NULL DEFAULT NULL,
     `team_id` INT NOT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_formula1_driver_team`

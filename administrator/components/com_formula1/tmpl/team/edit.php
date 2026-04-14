@@ -21,6 +21,7 @@ HTMLHelper::_('behavior.keepalive');
         <?php echo $this->form->renderField('country'); ?>
         <?php echo $this->form->renderField('team_principal'); ?>
         <?php echo $this->form->renderField('engine'); ?>
+        <?php echo $this->form->renderField('file'); ?>
     </div>
 
     <input type="hidden" name="task" value="">
