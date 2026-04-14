@@ -36,8 +36,22 @@ use Joomla\CMS\Router\Route;
                 <tr>
                     <td><?php echo (int) $item->id; ?></td>
                     <td>
-                        <?php if (!empty($item->picture)) : ?>
-                            <img src="<?php echo htmlspecialchars($item->picture, ENT_QUOTES, 'UTF-8'); ?>" alt="Driver Picture" style="max-width: 100px; max-height: 100px;">
+                        <?php 
+                        if (!empty($item->picture)) : 
+                            $imagePath = $item->picture;
+                            
+                            if (strpos($imagePath, '{') === 0) {
+                                $imageData = json_decode($imagePath);
+                                $imagePath = $imageData->imagefile ?? '';
+                            }
+                            
+                            if ($imagePath) : ?>
+                                <img src="<?php echo Joomla\CMS\Uri\Uri::root() . htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8'); ?>" 
+                                     alt="Driver Picture" 
+                                     style="max-width: 100px; max-height: 100px; object-fit: cover;">
+                            <?php else : ?>
+                                No Image
+                            <?php endif; ?>
                         <?php else : ?>
                             No Image
                         <?php endif; ?>
