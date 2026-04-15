@@ -3,19 +3,25 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Layout\LayoutHelper;
+
+$filterForm = $this->filterForm ?? null;
+$activeFilters = $this->activeFilters ?? array();
 ?>
 
 <h1>Drivers</h1>
 
-<p>
+<form action="<?php echo Route::_('index.php?option=com_formula1&view=drivers'); ?>" method="post" name="adminForm" id="adminForm">
     <a class="btn btn-primary" href="<?php echo Route::_('index.php?option=com_formula1&view=driver&layout=edit'); ?>">
         New Driver
     </a>
-
     <a class="btn btn-secondary" href="<?php echo Route::_('index.php?option=com_formula1&view=teams'); ?>">
         View Teams
     </a>
-</p>
+    
+    <?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
+    <?php echo Joomla\CMS\HTML\HTMLHelper::_('form.token'); ?>
+</form>
 
 <table class="table table-striped">
     <thead>
