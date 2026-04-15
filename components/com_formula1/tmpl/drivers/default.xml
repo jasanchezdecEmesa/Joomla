@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="Listado de Pilotos F1">
+        <message>Muestra la tabla de pilotos con el filtro de nacionalidad.</message>
+    </layout>
+</metadata>

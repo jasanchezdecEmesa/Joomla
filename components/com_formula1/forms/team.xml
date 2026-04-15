@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="basic" label="Team data">
+        <field name="id" type="hidden" />
+
+        <field
+            name="name"
+            type="text"
+            label="Name"
+            required="true"
+        />
+
+        <field
+            name="country"
+            type="text"
+            label="Country"
+            required="true"
+        />
+
+        <field
+            name="team_principal"
+            type="text"
+            label="Team Principal"
+            required="true"
+        />
+
+        <field
+            name="engine"
+            type="text"
+            label="Engine"
+            required="true"
+        />
+
+        <field 
+            name="file" 
+            type="filelist" 
+            label="Technical Sheet (PDF)" 
+            description="Upload the technical sheet for the team" 
+            directory="files/documents"
+            preview="false"
+            supported_extensions="PDF"
+            filter="PDF"
+        />
+    </fieldset>
+</form>
