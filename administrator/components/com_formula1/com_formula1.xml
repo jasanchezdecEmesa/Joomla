@@ -10,6 +10,11 @@
     <administration>
         <menu link="index.php?option=com_formula1">Fórmula 1</menu>
 
+        <submenu>
+            <menu link="option=com_formula1&amp;view=teams">Teams</menu>
+            <menu link="option=com_formula1&amp;view=drivers">Drivers</menu>
+        </submenu>
+
         <files folder="admin">
             <folder>src</folder>
             <folder>services</folder>
