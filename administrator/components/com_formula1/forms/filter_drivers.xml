@@ -11,13 +11,13 @@
 
         <field
             name="nationality"
-            type="list"
+            type="sql"
             label="Filter by Nationality"
             onchange="this.form.submit();"
             query="SELECT DISTINCT nationality AS value, nationality AS text FROM #__formula1_drivers WHERE nationality != '' ORDER BY nationality ASC"
-            key_field="nationality"
-            value_field="nationality"
-            >
+            key_field="value"
+            value_field="text"
+        >
             <option value="">- Select Nationality -</option>
         </field>
     </fields>

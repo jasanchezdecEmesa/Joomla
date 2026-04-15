@@ -16,11 +16,29 @@ class HtmlView extends BaseHtmlView
 
     public function display($tpl = null)
     {
-        $this->items = $this->get('Items');
-        $this->pagination = $this->get('Pagination');
-        $this->state = $this->get('State');
+        $this->items         = $this->get('Items');
+        $this->pagination    = $this->get('Pagination');
+        $this->state         = $this->get('State');
         $this->filterForm    = $this->get('FilterForm');
         $this->activeFilters = $this->get('ActiveFilters');
+
+        $nationalities = $this->get('Nationalities');
+
+        if ($this->filterForm && !empty($nationalities)) {
+            $field = $this->filterForm->getField('nationality', 'filter');
+            
+            if ($field) {
+                $options = [
+                    \Joomla\CMS\HTML\HTMLHelper::_('select.option', '', '- Select Nationality -')
+                ];
+
+                foreach ($nationalities as $nat) {
+                    $options[] = \Joomla\CMS\HTML\HTMLHelper::_('select.option', $nat->value, $nat->text);
+                }
+
+                $this->filterForm->setFieldAttribute('nationality', 'options', $options);
+            }
+        }
 
         parent::display($tpl);
     }

@@ -21,6 +21,9 @@ $activeFilters = $this->activeFilters ?? array();
     
     <?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
     <?php echo Joomla\CMS\HTML\HTMLHelper::_('form.token'); ?>
+    
+    <input type="hidden" name="task" value="" />
+    <input type="hidden" name="boxchecked" value="0" />
 </form>
 
 <table class="table table-striped">

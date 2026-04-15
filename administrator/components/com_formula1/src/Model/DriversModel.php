@@ -11,31 +11,26 @@ class DriversModel extends ListModel
     protected function getListQuery()
     {
         $db = $this->getDatabase();
+        $query = $db->getQuery(true);
 
-        $query = $db->getQuery(true)
-            ->select([
-                $db->quoteName('d.id'),
-                $db->quoteName('d.first_name'),
-                $db->quoteName('d.last_name'),
-                $db->quoteName('d.nationality'),
-                $db->quoteName('d.number'),
-                $db->quoteName('d.team_id'),
-                $db->quoteName('d.picture'),
-                $db->quoteName('t.name', 'team_name')
-            ])
-            ->from($db->quoteName('#__formula1_drivers', 'd'))
-            ->join(
-                'LEFT',
-                $db->quoteName('#__formula1_teams', 't')
-                . ' ON ' . $db->quoteName('d.team_id')
-                . ' = ' . $db->quoteName('t.id')
-            )
-            ->order($db->quoteName('d.last_name') . ' ASC');
-        
+        $query->select([
+            $db->quoteName('d.id'),
+            $db->quoteName('d.first_name'),
+            $db->quoteName('d.last_name'),
+            $db->quoteName('d.nationality'),
+            $db->quoteName('d.number'),
+            $db->quoteName('d.team_id'),
+            $db->quoteName('d.picture'),
+            $db->quoteName('t.name', 'team_name')
+        ])
+        ->from($db->quoteName('#__formula1_drivers', 'd'))
+        ->join(
+            'LEFT',
+            $db->quoteName('#__formula1_teams', 't')
+            . ' ON ' . $db->quoteName('d.team_id') . ' = ' . $db->quoteName('t.id')
+        );
+
         $search = $this->getState('filter.search');
-        $nationality = $this->getState('filter.nationality');
-        // var_dump($nationality); die(); // Descomenta esto para probar
-
         if (!empty($search)) {
             if (stripos($search, 'id:') === 0) {
                 $query->where($db->quoteName('d.id') . ' = ' . (int) substr($search, 3));
@@ -46,8 +41,11 @@ class DriversModel extends ListModel
             }
         }
 
+        $nationality = $this->getState('filter.nationality');
+
         if (!empty($nationality)) {
-            $query->where($db->quoteName('d.nationality') . ' = ' . $db->quote($db->escape($nationality)));
+            $nationality = trim($nationality);
+            $query->where($db->quoteName('d.nationality') . ' = ' . $db->quote($nationality));
         }
 
         $query->order($db->quoteName('d.last_name') . ' ASC');
@@ -55,13 +53,36 @@ class DriversModel extends ListModel
         return $query;
     }
 
+    public function getNationalities()
+    {
+        $db = $this->getDatabase();
+        $query = $db->getQuery(true);
+
+        $query->select('DISTINCT ' . $db->quoteName('nationality', 'value'))
+            ->select($db->quoteName('nationality', 'text'))
+            ->from($db->quoteName('#__formula1_drivers'))
+            ->where($db->quoteName('nationality') . ' != ' . $db->quote(''))
+            ->order($db->quoteName('nationality') . ' ASC');
+
+        $db->setQuery($query);
+        $results = $db->loadObjectList();
+
+        return $results;
+    }
+
     protected function populateState($ordering = null, $direction = null)
     {
-        $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search', '', 'string');
+        $app = \Joomla\CMS\Factory::getApplication();
+
+        $filters = $app->input->get('filter', [], 'array');
+
+        $search = isset($filters['search']) ? $filters['search'] : '';
         $this->setState('filter.search', trim($search));
 
-        $nationality = $this->getUserStateFromRequest($this->context . '.filter.nationality', 'filter_nationality', '', 'string');
-        $this->setState('filter.nationality', trim($nationality));
+        $nationality = isset($filters['nationality']) ? $filters['nationality'] : '';
+        
+        $app->setUserState($this->context . '.filter.nationality', $nationality);
+        $this->setState('filter.nationality', $nationality);
 
         parent::populateState($ordering, $direction);
     }
