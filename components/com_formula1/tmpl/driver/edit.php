@@ -9,7 +9,7 @@ HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_formula1&layout=edit&id=' . (int) ($this->item->id ?? 0)); ?>"
+<form action="<?php echo Route::_('index.php?option=com_formula1&view=driver&layout=edit&id=' . (int) ($this->item->id ?? 0)); ?>"
       method="post"
       name="adminForm"
       id="driver-form"
@@ -25,6 +25,9 @@ HTMLHelper::_('behavior.keepalive');
         <?php echo $this->form->renderField('team_id'); ?>
     </div>
 
-    <input type="hidden" name="task" value="">
+    <button type="submit" class="btn btn-success">Save</button>
+    <a class="btn btn-secondary" href="<?php echo Route::_('index.php?option=com_formula1&view=drivers'); ?>">Cancel</a>
+
+    <input type="hidden" name="task" value="driver.save">
     <?php echo HTMLHelper::_('form.token'); ?>
 </form>

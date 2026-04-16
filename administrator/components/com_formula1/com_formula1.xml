@@ -2,22 +2,20 @@
 <extension type="component" method="upgrade">
     <name>com_formula1</name>
     <author>Juan Antonio</author>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <description>Componente Fórmula 1</description>
 
     <namespace path="src">Alumno\Component\Formula1</namespace>
 
-    <site>
-        <menu link="index.php?option=com_formula1">Fórmula 1</menu>
-        <files folder="site">
-            <folder>src</folder>
-            <folder>services</folder>
-            <folder>forms</folder>
-            <folder>sql</folder>
-            <folder>tmpl</folder>
-            <filename>index.html</filename>
-        </files>
-    </site>
+    <menu link="index.php?option=com_formula1&amp;view=teams">Fórmula 1</menu>
+
+    <files folder="site">
+        <folder>src</folder>
+        <folder>services</folder>
+        <folder>forms</folder>
+        <folder>tmpl</folder>
+        <filename>index.html</filename>
+    </files>
 
     <administration>
         <menu link="index.php?option=com_formula1">Fórmula 1</menu>
@@ -51,7 +49,7 @@
 
     <update>
         <sql>
-            <file driver="mysql" charset="utf8">sql/update/mysql</file>
+            <file driver="mysql" charset="utf8">admin/sql/update/mysql</file>
         </sql>
     </update>
 </extension>

@@ -1,7 +1,5 @@
 <?php
 
-namespace Alumno\Component\Formula1\Site\Service\HTML;
-
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Dispatcher\ComponentDispatcherFactoryInterface;
@@ -19,9 +17,9 @@ use Alumno\Component\Formula1\Site\Extension\Formula1Component;
 return new class implements ServiceProviderInterface {
     public function register(Container $container): void
     {
-        $container->registerServiceProvider(new MVCFactoryServiceProvider('\\Alumno\\Component\\Formula1\\Site'));
-        $container->registerServiceProvider(new ComponentDispatcherFactoryServiceProvider('\\Alumno\\Component\\Formula1\\Site'));
-        $container->registerServiceProvider(new RouterFactoryServiceProvider('\\Alumno\\Component\\Formula1\\Site'));
+        $container->registerServiceProvider(new MVCFactoryServiceProvider('\\Alumno\\Component\\Formula1'));
+        $container->registerServiceProvider(new ComponentDispatcherFactoryServiceProvider('\\Alumno\\Component\\Formula1'));
+        $container->registerServiceProvider(new RouterFactoryServiceProvider('\\Alumno\\Component\\Formula1'));
 
         $container->set(
             ComponentInterface::class,
