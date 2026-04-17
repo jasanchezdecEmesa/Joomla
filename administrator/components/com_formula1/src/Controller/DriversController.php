@@ -7,10 +7,9 @@ defined('_JEXEC') or die;
 require_once JPATH_ROOT . '/vendor/autoload.php';
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\MVC\Controller\AdminController;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use Joomla\CMS\MVC\Controller\AdminController;
 
 class DriversController extends AdminController
 {
@@ -21,7 +20,13 @@ class DriversController extends AdminController
 
     public function export()
     {
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $app = Factory::getApplication();
+        $db  = Factory::getContainer()->get('DatabaseDriver');
+
+        $filters = $app->input->get('filter', [], 'array');
+
+        $search = trim($filters['search'] ?? '');
+        $nationality = trim($filters['nationality'] ?? '');
 
         $query = $db->getQuery(true)
             ->select([
@@ -37,8 +42,32 @@ class DriversController extends AdminController
             ->leftJoin(
                 $db->quoteName('#__formula1_teams', 't')
                 . ' ON d.' . $db->quoteName('team_id') . ' = t.' . $db->quoteName('id')
-            )
-            ->order('d.' . $db->quoteName('id') . ' ASC');
+            );
+
+        // Filtro por búsqueda
+        if ($search !== '') {
+            if (stripos($search, 'id:') === 0) {
+                $query->where($db->quoteName('d.id') . ' = ' . (int) substr($search, 3));
+            } else {
+                $searchLike = $db->quote('%' . $db->escape($search, true) . '%');
+                $query->where(
+                    '('
+                    . $db->quoteName('d.first_name') . ' LIKE ' . $searchLike
+                    . ' OR '
+                    . $db->quoteName('d.last_name') . ' LIKE ' . $searchLike
+                    . ')'
+                );
+            }
+        }
+
+        // Filtro por nacionalidad
+        if ($nationality !== '') {
+            $query->where(
+                $db->quoteName('d.nationality') . ' = ' . $db->quote($nationality)
+            );
+        }
+
+        $query->order($db->quoteName('d.last_name') . ' ASC');
 
         $db->setQuery($query);
         $rows = $db->loadAssocList();
@@ -47,7 +76,6 @@ class DriversController extends AdminController
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle('Pilotos');
 
-        // Cabeceras
         $sheet->setCellValue('A1', 'ID');
         $sheet->setCellValue('B1', 'First Name');
         $sheet->setCellValue('C1', 'Last Name');
@@ -57,7 +85,6 @@ class DriversController extends AdminController
         $sheet->setCellValue('G1', 'Team');
 
         $fila = 2;
-
         foreach ($rows as $row) {
             $sheet->setCellValue('A' . $fila, $row['id']);
             $sheet->setCellValue('B' . $fila, $row['first_name']);
@@ -73,14 +100,12 @@ class DriversController extends AdminController
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
-        $filename = 'pilotos.xlsx';
-
         while (ob_get_level()) {
             ob_end_clean();
         }
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Content-Disposition: attachment; filename="pilotos_filtrados.xlsx"');
         header('Cache-Control: max-age=0');
 
         $writer = new Xlsx($spreadsheet);

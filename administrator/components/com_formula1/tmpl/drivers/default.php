@@ -18,9 +18,11 @@ $activeFilters = $this->activeFilters ?? array();
     <a class="btn btn-secondary" href="<?php echo Route::_('index.php?option=com_formula1&view=teams'); ?>">
         View Teams
     </a>
-    <a class="btn btn-success" href="<?php echo Route::_('index.php?option=com_formula1&task=drivers.export'); ?>">
+    <button type="button"
+        class="btn btn-success"
+        onclick="document.getElementById('adminForm').task.value='drivers.export'; document.getElementById('adminForm').submit();">
         Export to Excel
-    </a>
+    </button>
     
     <?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
     <?php echo Joomla\CMS\HTML\HTMLHelper::_('form.token'); ?>
