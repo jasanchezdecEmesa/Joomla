@@ -4,11 +4,92 @@ namespace Alumno\Component\Formula1\Administrator\Controller;
 
 defined('_JEXEC') or die;
 
+require_once JPATH_ROOT . '/vendor/autoload.php';
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Joomla\CMS\MVC\Controller\AdminController;
 
-class DriversController extends BaseController
+class DriversController extends AdminController
 {
+    public function getModel($name = 'Driver', $prefix = 'Administrator', $config = ['ignore_request' => true])
+    {
+        return parent::getModel($name, $prefix, $config);
+    }
+
+    public function export()
+    {
+        $db = Factory::getContainer()->get('DatabaseDriver');
+
+        $query = $db->getQuery(true)
+            ->select([
+                'd.' . $db->quoteName('id'),
+                'd.' . $db->quoteName('first_name'),
+                'd.' . $db->quoteName('last_name'),
+                'd.' . $db->quoteName('nationality'),
+                'd.' . $db->quoteName('number'),
+                'd.' . $db->quoteName('team_id'),
+                't.' . $db->quoteName('name', 'team_name')
+            ])
+            ->from($db->quoteName('#__formula1_drivers', 'd'))
+            ->leftJoin(
+                $db->quoteName('#__formula1_teams', 't')
+                . ' ON d.' . $db->quoteName('team_id') . ' = t.' . $db->quoteName('id')
+            )
+            ->order('d.' . $db->quoteName('id') . ' ASC');
+
+        $db->setQuery($query);
+        $rows = $db->loadAssocList();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Pilotos');
+
+        // Cabeceras
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'First Name');
+        $sheet->setCellValue('C1', 'Last Name');
+        $sheet->setCellValue('D1', 'Nationality');
+        $sheet->setCellValue('E1', 'Number');
+        $sheet->setCellValue('F1', 'Team ID');
+        $sheet->setCellValue('G1', 'Team');
+
+        $fila = 2;
+
+        foreach ($rows as $row) {
+            $sheet->setCellValue('A' . $fila, $row['id']);
+            $sheet->setCellValue('B' . $fila, $row['first_name']);
+            $sheet->setCellValue('C' . $fila, $row['last_name']);
+            $sheet->setCellValue('D' . $fila, $row['nationality']);
+            $sheet->setCellValue('E' . $fila, $row['number']);
+            $sheet->setCellValue('F' . $fila, $row['team_id']);
+            $sheet->setCellValue('G' . $fila, $row['team_name'] ?? '');
+            $fila++;
+        }
+
+        foreach (range('A', 'G') as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+
+        $filename = 'pilotos.xlsx';
+
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
+        $spreadsheet->disconnectWorksheets();
+
+        exit;
+    }
+
     public function delete()
     {
         $app = Factory::getApplication();

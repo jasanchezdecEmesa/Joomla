@@ -15,6 +15,9 @@ use Joomla\CMS\Router\Route;
     <a class="btn btn-secondary" href="<?php echo Route::_('index.php?option=com_formula1&view=drivers'); ?>">
         View Drivers
     </a>
+    <a class="btn btn-success" href="<?php echo Route::_('index.php?option=com_formula1&view=teams&task=teams.export'); ?>">
+        Export to Excel
+    </a>
 </p>
 
 <table class="table table-striped">
